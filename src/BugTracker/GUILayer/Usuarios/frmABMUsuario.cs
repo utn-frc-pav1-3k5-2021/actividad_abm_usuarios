@@ -30,9 +30,9 @@ namespace BugTracker.GUILayer.Usuarios
 
         public enum FormMode
         {
-            nuevo,
-            actualizar,
-            eliminar = 99
+            nuevo,          // Alta
+            eliminar = 99,  // Baja
+            modificar       //Modificación
         }
 
 
@@ -46,7 +46,7 @@ namespace BugTracker.GUILayer.Usuarios
                         this.Text = "Nuevo Usuario";
                         break;
                     }
-                case FormMode.actualizar:
+                case FormMode.modificar:
                     {
                         this.Text = "Actualizar Usuario";
                         // Recuperar usuario seleccionado en la grilla 
@@ -122,7 +122,7 @@ namespace BugTracker.GUILayer.Usuarios
                         break;
                     }
 
-                case FormMode.actualizar:
+                case FormMode.modificar:
                     {
                         if (ValidarCampos())
                         {
