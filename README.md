@@ -50,6 +50,7 @@ Sobre el formulario `frmABMUsuario` realizar las siguientes actividades:
 * **Botón Consultar**
 	* En el evento **click** de **btnConsultar** agregar código para obtener los usuarios de la base de datos, filtrando por Nombre y Perfil. Tener en cuenta que se encuentra disponible el método **oUsuarioService.ConsultarConFiltro(filters)**.
 	* Si el **chkTodos** tiene la propiedad **chkTodos.Checked = true** obtener todos los usuarios sin filtrar y usar el método **oUsuarioService.ObtenerTodos()**.
+	* Completar la grilla **dgvUsers** con los usuarios obtenidos.
 	
 * **Habilitar Botones Editar y Eliminar**
 	- Al abrir el formulario **frmUsuarios** los botones **btnEditar** y **btnQuitar** deben estar deshabilitados. 
