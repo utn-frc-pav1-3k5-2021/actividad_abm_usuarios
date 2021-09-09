@@ -33,6 +33,7 @@ namespace BugTracker.GUILayer.Usuarios
         {
             LlenarCombo(cboPerfiles, oPerfilService.ObtenerTodos(), "Nombre", "IdPerfil");
             this.CenterToParent();
+            
         }
 
         private void LlenarCombo(ComboBox cbo, Object source, string display, String value)
@@ -75,12 +76,41 @@ namespace BugTracker.GUILayer.Usuarios
 
         private void btnConsultar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            if (chkTodos.Checked)
+            {
+                IList<Usuario> listaUsuarios = oUsuarioService.ObtenerTodos();
+                dgvUsers.DataSource = listaUsuarios;
+                return;
+            }
+
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+            if(!String.IsNullOrEmpty(txtNombre.Text))
+            {
+                string nombre = txtNombre.Text;
+                parametros.Add("usuario", nombre);
+            }
+
+            if (!String.IsNullOrEmpty(cboPerfiles.Text))
+            {
+                string idPerfil = cboPerfiles.SelectedValue.ToString();
+                parametros.Add("idPerfil", idPerfil);
+            }
+
+            IList<Usuario> listadoUsuarios = oUsuarioService.ConsultarConFiltro(parametros);
+            dgvUsers.DataSource = listadoUsuarios;
         }
 
         private void btnEditar_Click(System.Object sender, System.EventArgs e)
         {
-       
+            Usuario usuarioSeleccionado = (Usuario) dgvUsers.CurrentRow.DataBoundItem;
+
+            frmABMUsuario frmABMUsuario = new frmABMUsuario();
+            frmABMUsuario.InicializarFormulario(frmABMUsuario.FormMode.modificar, usuarioSeleccionado);
+            frmABMUsuario.ShowDialog();
+            btnConsultar_Click(null, null);
+            
+
         }
 
         private void btnQuitar_Click(System.Object sender, System.EventArgs e)
@@ -123,6 +153,10 @@ namespace BugTracker.GUILayer.Usuarios
                 DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
         }
 
-        
+        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditar.Enabled = true;
+            btnQuitar.Enabled = true;
+        }
     }
 }
