@@ -75,7 +75,25 @@ namespace BugTracker.GUILayer.Usuarios
 
         private void btnConsultar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            IList<Usuario> lista = new List<Usuario>();
+            //Checkear si mostrar todos o no
+            if(chkTodos.Checked)
+            {
+                lista = oUsuarioService.ObtenerTodos();
+            }
+            else
+            {
+                Dictionary<string, object> filtros = new Dictionary<string, object>();
+                //Checkea que filtros no esten vacios para agregarlos al diccionario de parametros
+                if(!string.IsNullOrEmpty(txtNombre.Text))
+                    filtros.Add("usuario", txtNombre.Text);
+                if (cboPerfiles.SelectedIndex >= 0)
+                    filtros.Add("idPerfil", cboPerfiles.SelectedValue.ToString());
+
+                lista = oUsuarioService.ConsultarConFiltro(filtros);
+            }
+
+            dgvUsers.DataSource = lista;
         }
 
         private void btnEditar_Click(System.Object sender, System.EventArgs e)
