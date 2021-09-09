@@ -62,11 +62,13 @@
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgvUsers.Location = new System.Drawing.Point(3, 118);
+            this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUsers.Size = new System.Drawing.Size(407, 192);
             this.dgvUsers.TabIndex = 8;
+            this.dgvUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellClick);
             // 
             // btnSalir
             // 
@@ -169,7 +171,6 @@
             this.pnlFiltros.TabIndex = 8;
             this.pnlFiltros.TabStop = false;
             this.pnlFiltros.Text = "Filtros";
-  
             // 
             // frmUsuarios
             // 

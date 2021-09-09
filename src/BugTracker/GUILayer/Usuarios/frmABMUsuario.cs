@@ -175,6 +175,32 @@ namespace BugTracker.GUILayer.Usuarios
             else
                 txtNombre.BackColor = Color.White;
 
+            if (String.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                txtPassword.BackColor = Color.Red;
+                txtPassword.Focus();
+                return false;
+            }
+            else
+                txtPassword.BackColor = Color.White;
+
+            if (String.IsNullOrWhiteSpace(txtConfirmarPass.Text) || (!String.IsNullOrWhiteSpace(txtConfirmarPass.Text) && txtConfirmarPass.Text != txtPassword.Text))
+            {
+                txtConfirmarPass.BackColor = Color.Red;
+                txtConfirmarPass.Focus();
+                return false;
+            }
+            else
+                txtConfirmarPass.BackColor = Color.White;
+
+            if (cboPerfil.SelectedIndex == -1)
+            {
+                cboPerfil.BackColor = Color.Red;
+                cboPerfil.Focus();
+                return false;
+            } else
+                cboPerfil.BackColor = Color.White;
+
             return true;
         }
 
