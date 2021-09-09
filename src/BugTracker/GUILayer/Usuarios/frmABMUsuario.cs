@@ -30,9 +30,9 @@ namespace BugTracker.GUILayer.Usuarios
 
         public enum FormMode
         {
-            nuevo,          // Alta
-            eliminar = 99,  // Baja
-            modificar       //Modificación
+            nuevo,
+            actualizar,
+            eliminar
         }
 
 
@@ -46,7 +46,8 @@ namespace BugTracker.GUILayer.Usuarios
                         this.Text = "Nuevo Usuario";
                         break;
                     }
-                case FormMode.modificar:
+
+                case FormMode.actualizar:
                     {
                         this.Text = "Actualizar Usuario";
                         // Recuperar usuario seleccionado en la grilla 
@@ -63,7 +64,7 @@ namespace BugTracker.GUILayer.Usuarios
                 case FormMode.eliminar:
                     {
                         MostrarDatos();
-                        this.Text = "Eliminar Usuario";
+                        this.Text = "Habilitar/Deshabilitar Usuario";
                         txtNombre.Enabled = false;
                         txtEmail.Enabled = false;
                         txtEmail.Enabled = false;
@@ -122,7 +123,7 @@ namespace BugTracker.GUILayer.Usuarios
                         break;
                     }
 
-                case FormMode.modificar:
+                case FormMode.actualizar:
                     {
                         if (ValidarCampos())
                         {
@@ -147,15 +148,14 @@ namespace BugTracker.GUILayer.Usuarios
                 case FormMode.eliminar:
                     {
                         if (MessageBox.Show("Seguro que desea habilitar/deshabilitar el usuario seleccionado?", "Aviso", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                        {
-                            
+                        {                         
                             if (oUsuarioService.EliminarUsuario(oUsuarioSelected))
                             {
-                                MessageBox.Show("Usuario Eliminado", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("Usuario Habilitado/Deshabilitado!", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 this.Close();
                             }
                             else
-                                MessageBox.Show("Error al eliminar el usuario!", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("Error al actualizar el usuario!", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
 
                         break;
@@ -174,6 +174,46 @@ namespace BugTracker.GUILayer.Usuarios
             }
             else
                 txtNombre.BackColor = Color.White;
+
+            if (txtPassword.Text == string.Empty)
+            {
+                txtPassword.BackColor = Color.Red;
+                txtPassword.Focus();
+                return false;
+            }
+            else
+                txtPassword.BackColor = Color.White;
+
+            if (txtConfirmarPass.Text == string.Empty)
+            {
+                txtConfirmarPass.BackColor = Color.Red;
+                txtConfirmarPass.Focus();
+                return false;
+            }
+            else
+                txtConfirmarPass.BackColor = Color.White;
+
+            if (cboPerfil.Text == string.Empty)
+            {
+                cboPerfil.BackColor = Color.Red;
+                cboPerfil.Focus();
+                return false;
+            }
+            else
+                cboPerfil.BackColor = Color.White;
+
+            if (txtConfirmarPass.Text != txtPassword.Text)
+            {
+                txtConfirmarPass.BackColor = Color.Red;
+                txtPassword.BackColor = Color.Red;
+                txtConfirmarPass.Focus();
+                return false;
+            }
+            else
+            {
+                txtConfirmarPass.BackColor = Color.White;
+                txtPassword.BackColor = Color.White;
+            }
 
             return true;
         }

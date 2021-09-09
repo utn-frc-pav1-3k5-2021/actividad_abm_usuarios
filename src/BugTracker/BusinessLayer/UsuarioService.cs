@@ -24,7 +24,7 @@ namespace BugTracker.BusinessLayer
         {
             var usr = oUsuarioDao.GetUser(usuario);
 
-            if (usr != null && usr.Password.Equals(password))
+            if (usr.Password != null && usr.Password.Equals(password))
             {
                 return usr;
             }
@@ -49,6 +49,7 @@ namespace BugTracker.BusinessLayer
 
         internal object ObtenerUsuario(string usuario)
         {
+
             return oUsuarioDao.GetUser(usuario);
         }
 

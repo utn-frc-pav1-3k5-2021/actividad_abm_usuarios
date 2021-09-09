@@ -44,7 +44,7 @@ namespace BugTracker.DataAccessLayer
                                        "  INNER JOIN Prioridades as prioridad ON  prioridad.id_prioridad = bug.id_prioridad",
                                        "  INNER JOIN Criticidades as criticidad ON criticidad.id_criticidad = bug.id_criticidad",
                                        "  INNER JOIN Estados as estado ON estado.id_estado = bug.id_estado",
-                                       " WHERE id_bug = " + idBug.ToString());
+                                       " WHERE borrado = 0 and id_bug = " + idBug.ToString());
 
             return ObjectMapping(DataManager.GetInstance().ConsultaSQL(strSql).Rows[0]);
         }
@@ -76,7 +76,7 @@ namespace BugTracker.DataAccessLayer
                                       "  INNER JOIN Prioridades as prioridad ON  prioridad.id_prioridad = bug.id_prioridad",
                                       "  INNER JOIN Criticidades as criticidad ON criticidad.id_criticidad = bug.id_criticidad",
                                       "  INNER JOIN Estados as estado ON estado.id_estado = bug.id_estado",
-                                      "  WHERE 1=1 ");
+                                      "  WHERE borrado = 0 ");
 
             if (parametros.ContainsKey("fechaDesde") && parametros.ContainsKey("fechaHasta"))
                 strSql += " AND (fecha_alta>=@fechaDesde AND fecha_alta<=@fechaHasta) ";
@@ -92,7 +92,7 @@ namespace BugTracker.DataAccessLayer
                 strSql += " AND (id_usuario_asignado=@idUsuarioAsignado) ";
             strSql += " ORDER BY bug.fecha_alta DESC";
 
-            var resultadoConsulta = (DataRowCollection) DataManager.GetInstance().ConsultaSQL(strSql, parametros).Rows;
+            var resultadoConsulta = DataManager.GetInstance().ConsultaSQL(strSql, parametros).Rows;
 
             foreach (DataRow row in resultadoConsulta)
             {

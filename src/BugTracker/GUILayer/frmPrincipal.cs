@@ -44,6 +44,11 @@ namespace BugTracker.GUILayer
         {
             this.Close();
         }
-        
+
+        private void UsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmUsuarios frmDetalle = new frmUsuarios();
+            frmDetalle.ShowDialog();
+        }
     }
 }

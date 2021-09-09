@@ -42,31 +42,31 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // btnCancelar
+            // btn_cancelar
             // 
             this.btnCancelar.Location = new System.Drawing.Point(203, 180);
-            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Name = "btn_cancelar";
             this.btnCancelar.Size = new System.Drawing.Size(80, 23);
             this.btnCancelar.TabIndex = 22;
             this.btnCancelar.Text = "&Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // btnAceptar
+            // btn_aceptar
             // 
             this.btnAceptar.Location = new System.Drawing.Point(119, 180);
-            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Name = "btn_aceptar";
             this.btnAceptar.Size = new System.Drawing.Size(78, 23);
             this.btnAceptar.TabIndex = 21;
             this.btnAceptar.Text = "&Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // cboPerfil
+            // cbo_perfil
             // 
             this.cboPerfil.FormattingEnabled = true;
             this.cboPerfil.Location = new System.Drawing.Point(145, 123);
-            this.cboPerfil.Name = "cboPerfil";
+            this.cboPerfil.Name = "cbo_perfil";
             this.cboPerfil.Size = new System.Drawing.Size(192, 21);
             this.cboPerfil.TabIndex = 26;
             // 
@@ -88,10 +88,11 @@
             this.Label4.TabIndex = 24;
             this.Label4.Text = "Repetir Contraseña(*):";
             // 
-            // txtConfirmarPass
+            // txt_confirmar_pass
             // 
             this.txtConfirmarPass.Location = new System.Drawing.Point(145, 96);
-            this.txtConfirmarPass.Name = "txtConfirmarPass";
+            this.txtConfirmarPass.Name = "txt_confirmar_pass";
+            this.txtConfirmarPass.PasswordChar = '*';
             this.txtConfirmarPass.Size = new System.Drawing.Size(138, 20);
             this.txtConfirmarPass.TabIndex = 19;
             // 
@@ -104,17 +105,18 @@
             this.Label3.TabIndex = 23;
             this.Label3.Text = "Contraseña(*):";
             // 
-            // txtPassword
+            // txt_password
             // 
             this.txtPassword.Location = new System.Drawing.Point(145, 70);
-            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Name = "txt_password";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(138, 20);
             this.txtPassword.TabIndex = 18;
             // 
-            // txtEmail
+            // txt_email
             // 
             this.txtEmail.Location = new System.Drawing.Point(145, 44);
-            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Name = "txt_email";
             this.txtEmail.Size = new System.Drawing.Size(192, 20);
             this.txtEmail.TabIndex = 16;
             // 
@@ -136,10 +138,10 @@
             this.Label1.TabIndex = 17;
             this.Label1.Text = "Nombre(*):";
             // 
-            // txtNombre
+            // txt_nombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(145, 18);
-            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Name = "txt_nombre";
             this.txtNombre.Size = new System.Drawing.Size(192, 20);
             this.txtNombre.TabIndex = 15;
             // 
