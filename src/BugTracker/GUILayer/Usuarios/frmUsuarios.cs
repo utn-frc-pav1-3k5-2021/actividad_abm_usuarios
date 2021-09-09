@@ -98,12 +98,16 @@ namespace BugTracker.GUILayer.Usuarios
 
         private void btnEditar_Click(System.Object sender, System.EventArgs e)
         {
-       
+            AbrirABMCUsuario(frmABMUsuario.FormMode.modificar, (Usuario)dgvUsers.CurrentRow.DataBoundItem);
+
+            btnConsultar_Click(sender, e);
         }
 
         private void btnQuitar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            AbrirABMCUsuario(frmABMUsuario.FormMode.eliminar, (Usuario)dgvUsers.CurrentRow.DataBoundItem);
+
+            btnConsultar_Click(sender, e);
         }
 
         private void InitializeDataGridView()
@@ -141,6 +145,17 @@ namespace BugTracker.GUILayer.Usuarios
                 DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
         }
 
-        
+        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditar.Enabled = true;
+            btnQuitar.Enabled = true;
+        }
+
+        private void AbrirABMCUsuario(frmABMUsuario.FormMode modo, Usuario usSelecc)
+        {
+            frmABMUsuario frmABMUsuario = new frmABMUsuario();
+            frmABMUsuario.InicializarFormulario(modo, usSelecc);
+            frmABMUsuario.ShowDialog();
+        }
     }
 }
