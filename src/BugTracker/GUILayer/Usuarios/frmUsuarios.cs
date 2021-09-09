@@ -115,7 +115,11 @@ namespace BugTracker.GUILayer.Usuarios
 
         private void btnQuitar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            Usuario usuarioSeleccionado = (Usuario)dgvUsers.CurrentRow.DataBoundItem;
+            frmABMUsuario frmABMUsuario = new frmABMUsuario();
+            frmABMUsuario.InicializarFormulario(frmABMUsuario.FormMode.eliminar, usuarioSeleccionado);
+            frmABMUsuario.ShowDialog();
+            btnConsultar_Click(null, null);
         }
 
         private void InitializeDataGridView()

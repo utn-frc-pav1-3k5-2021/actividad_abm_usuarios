@@ -131,7 +131,14 @@ namespace BugTracker.DataAccessLayer
 
         internal bool Delete(Usuario oUsuario)
         {
-            throw new NotImplementedException();
+            string str_sql = "     UPDATE Usuarios SET borrado = 1 " +
+                              "     WHERE id_usuario = @idUsuario";
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("idUsuario", oUsuario.IdUsuario);
+
+            // Si una fila es afectada por la inserción retorna TRUE. Caso contrario FALSE
+            return (DataManager.GetInstance().EjecutarSQL(str_sql, parametros) == 1);
         }
 
 
