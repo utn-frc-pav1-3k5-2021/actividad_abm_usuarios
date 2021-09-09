@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace BugTracker.GUILayer.Usuarios
         public frmUsuarios()
         {
             InitializeComponent();
-            InitializeDataGridView();
+            //InitializeDataGridView();
             oUsuarioService = new UsuarioService();
             oPerfilService = new PerfilService();
 
@@ -75,6 +76,36 @@ namespace BugTracker.GUILayer.Usuarios
 
         private void btnConsultar_Click(System.Object sender, System.EventArgs e)
         {
+            if (chkTodos.Checked)
+            {
+                try
+                {
+                    CargarGrilla(txtNombre.Text, cboPerfiles.SelectedIndex);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error al intentar consultar en la base de datos");
+                }
+            }
+            else
+            {
+                if (txtNombre.Text.Equals(""))
+                {
+                    MessageBox.Show("Error, todos los campos son obligatorios");
+                    return;
+                }
+                else
+                {
+                    try
+                    {
+                        CargarGrilla(txtNombre.Text, cboPerfiles.SelectedIndex);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Error al intentar consultar en la base de datos");
+                    }
+                }
+            }
             
         }
 
@@ -88,41 +119,56 @@ namespace BugTracker.GUILayer.Usuarios
             
         }
 
-        private void InitializeDataGridView()
-        {
-            // Cree un DataGridView no vinculado declarando un recuento de columnas.
-            dgvUsers.ColumnCount = 3;
-            dgvUsers.ColumnHeadersVisible = true;
-
-            // Configuramos la AutoGenerateColumns en false para que no se autogeneren las columnas
-            dgvUsers.AutoGenerateColumns = false;
-
-            // Cambia el estilo de la cabecera de la grilla.
-            DataGridViewCellStyle columnHeaderStyle = new DataGridViewCellStyle();
-
-            columnHeaderStyle.BackColor = Color.Beige;
-            columnHeaderStyle.Font = new Font("Verdana", 8, FontStyle.Bold);
-            dgvUsers.ColumnHeadersDefaultCellStyle = columnHeaderStyle;
-
-            // Definimos el nombre de la columnas y el DataPropertyName que se asocia a DataSource
-            dgvUsers.Columns[0].Name = "Usuario";
-            dgvUsers.Columns[0].DataPropertyName = "NombreUsuario";
-            // Definimos el ancho de la columna.
-
-            dgvUsers.Columns[1].Name = "Email";
-            dgvUsers.Columns[1].DataPropertyName = "Email";
-
-            dgvUsers.Columns[2].Name = "Perfil";
-            dgvUsers.Columns[2].DataPropertyName = "Perfil";
-
-            // Cambia el tamaño de la altura de los encabezados de columna.
-            dgvUsers.AutoResizeColumnHeadersHeight();
-
-            // Cambia el tamaño de todas las alturas de fila para ajustar el contenido de todas las celdas que no sean de encabezado.
-            dgvUsers.AutoResizeRows(
-                DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
-        }
-
         
+
+        //Metodo para cargar la grilla
+        private void CargarGrilla(string nombre, int perfil)
+        {
+
+            string cadenaConexion = System.Configuration.ConfigurationManager.AppSettings["cadenaDB"];
+
+            SqlCommand cmd = new SqlCommand();
+            SqlConnection cn = new SqlConnection(cadenaConexion);
+
+            try
+            {
+                string consulta = "";
+                if (!nombre.Equals(""))
+                {
+                    consulta = "SELECT usuario, email, id_perfil FROM Usuarios WHERE @nombre like usuario ";
+                }
+                else if (nombre.Length == 0/* && perfil == 0*/)
+                {
+                    consulta = "SELECT usuario, email, id_perfil FROM Usuarios";
+                }
+                
+
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@nombre", nombre );
+                //cmd.Parameters.AddWithValue("@perfil", perfil);
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = consulta;
+
+                cn.Open();
+                cmd.Connection = cn;
+
+                DataTable table = new DataTable();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(table);
+
+                dgvUsers.DataSource = table;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+
+        }
     }
 }

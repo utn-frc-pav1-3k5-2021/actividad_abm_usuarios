@@ -40,6 +40,9 @@
             this.cboPerfiles = new System.Windows.Forms.ComboBox();
             this.lblEstado = new System.Windows.Forms.Label();
             this.pnlFiltros = new System.Windows.Forms.GroupBox();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.perfil = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.pnlFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +63,10 @@
             this.dgvUsers.AllowUserToAddRows = false;
             this.dgvUsers.AllowUserToDeleteRows = false;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.usuario,
+            this.email,
+            this.perfil});
             this.dgvUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgvUsers.Location = new System.Drawing.Point(3, 118);
             this.dgvUsers.Name = "dgvUsers";
@@ -169,7 +176,27 @@
             this.pnlFiltros.TabIndex = 8;
             this.pnlFiltros.TabStop = false;
             this.pnlFiltros.Text = "Filtros";
-  
+            // 
+            // usuario
+            // 
+            this.usuario.DataPropertyName = "usuario";
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            // 
+            // email
+            // 
+            this.email.DataPropertyName = "email";
+            this.email.HeaderText = "Email";
+            this.email.Name = "email";
+            this.email.ReadOnly = true;
+            // 
+            // perfil
+            // 
+            this.perfil.DataPropertyName = "id_perfil";
+            this.perfil.HeaderText = "Perfil";
+            this.perfil.Name = "perfil";
+            this.perfil.ReadOnly = true;
             // 
             // frmUsuarios
             // 
@@ -184,6 +211,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmUsuarios";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Usuarios";
             this.Load += new System.EventHandler(this.frmUsuarios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
@@ -213,5 +241,8 @@
         internal System.Windows.Forms.ComboBox cboPerfiles;
         internal System.Windows.Forms.Label lblEstado;
         internal System.Windows.Forms.GroupBox pnlFiltros;
+        private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn email;
+        private System.Windows.Forms.DataGridViewTextBoxColumn perfil;
     }
 }

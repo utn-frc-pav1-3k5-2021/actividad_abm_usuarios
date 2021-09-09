@@ -23,6 +23,8 @@ namespace BugTracker.GUILayer
             //Se inicializan los controles del formulario, si se elimina el formulario se inicia vacio (sin controles ).
             InitializeComponent();
             usuarioService = new UsuarioService();
+            txtUsuario.Text = "fhambly0";
+            txtPassword.Text = "NXNy7nC4RB";
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
