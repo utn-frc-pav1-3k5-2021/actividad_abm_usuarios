@@ -24,6 +24,7 @@ namespace BugTracker.GUILayer.Usuarios
         {
             InitializeComponent();
             InitializeDataGridView();
+
             oUsuarioService = new UsuarioService();
             oPerfilService = new PerfilService();
 
@@ -75,17 +76,63 @@ namespace BugTracker.GUILayer.Usuarios
 
         private void btnConsultar_Click(System.Object sender, System.EventArgs e)
         {
+            var filters = new Dictionary<string, object>();
+
+
+            if (!chkTodos.Checked)
+            {
+                //Validar si el combo "Perfiles" esta selccionado
+                if (cboPerfiles.Text != string.Empty)
+                {
+                    // Si el cbo tiene un texto no vacio entonces recuperamos el valor de la propiedad
+                    filters.Add("idPerfil", cboPerfiles.SelectedValue);
+                }
+
+                //Validar si el textBox "Nombre" esta vacio
+                if (txtNombre.Text != string.Empty)
+                {
+                    //Si el txtBox tiene un texto no vacio entonces recuperamos el valor del texto
+                    filters.Add("usuario", txtNombre.Text);
+                }
+
+                if (filters.Count > 0)
+                    dgvUsers.DataSource = oUsuarioService.ConsultarConFiltro(filters);
+                else
+                    MessageBox.Show("Debe ingresar al menos un criterio", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            }
+
+            else
+                dgvUsers.DataSource = oUsuarioService.ObtenerTodos();
             
         }
 
         private void btnEditar_Click(System.Object sender, System.EventArgs e)
         {
-       
+
+            frmABMUsuario formulario = new frmABMUsuario();
+            //Asi obtenemos el item seleccionado de la grilla
+            var usuario = (Usuario)dgvUsers.CurrentRow.DataBoundItem;
+            formulario.InicializarFormulario(frmABMUsuario.FormMode.modificar, usuario);
+            formulario.ShowDialog();
+            //Forzamos el evento Click para actalizar el DataGridView
+            btnConsultar_Click(sender, e);
+
         }
 
         private void btnQuitar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            frmABMUsuario formulario = new frmABMUsuario();
+            //Asi obtenemos el item seleccionado de la grilla
+            var usuario = (Usuario)dgvUsers.CurrentRow.DataBoundItem;
+
+            formulario.InicializarFormulario(frmABMUsuario.FormMode.eliminar, usuario);
+            formulario.ShowDialog();
+
+            //Forzamos el evento Click para actalizar el DataGridView
+            btnConsultar_Click(sender, e);
+
+
         }
 
         private void InitializeDataGridView()
@@ -123,6 +170,10 @@ namespace BugTracker.GUILayer.Usuarios
                 DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
         }
 
-        
+        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditar.Enabled = true;
+            btnQuitar.Enabled = true;
+        }
     }
 }

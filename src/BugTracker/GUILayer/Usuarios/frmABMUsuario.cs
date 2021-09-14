@@ -32,7 +32,8 @@ namespace BugTracker.GUILayer.Usuarios
         {
             nuevo,          // Alta
             eliminar = 99,  // Baja
-            modificar       //Modificación
+            modificar      //Modificación
+            
         }
 
 
@@ -174,6 +175,39 @@ namespace BugTracker.GUILayer.Usuarios
             }
             else
                 txtNombre.BackColor = Color.White;
+
+            if (txtPassword.Text == string.Empty)
+            {
+                txtPassword.BackColor = Color.Red;
+                txtPassword.Focus();
+                return false;
+            }
+            else
+                txtPassword.BackColor = Color.White;
+
+            if (txtConfirmarPass.Text == string.Empty)
+            {
+                txtConfirmarPass.BackColor = Color.Red;
+                txtConfirmarPass.Focus();
+                return false;
+            }
+            else
+                txtConfirmarPass.BackColor = Color.White;
+
+            if (cboPerfil.SelectedValue == null)
+            {
+                cboPerfil.BackColor = Color.Red;
+
+                cboPerfil.Focus();
+                return false;
+            }
+            cboPerfil.BackColor = Color.White;
+
+            if (txtPassword.Text!= txtConfirmarPass.Text)
+            {
+                MessageBox.Show("Contraseña y Repetir Contranseña son diferentes!", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
 
             return true;
         }
