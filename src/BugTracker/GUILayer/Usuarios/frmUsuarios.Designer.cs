@@ -49,7 +49,7 @@
             this.btnQuitar.Enabled = false;
             this.btnQuitar.Image = global::BugTracker.Properties.Resources.eliminar;
             this.btnQuitar.Location = new System.Drawing.Point(139, 407);
-            this.btnQuitar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnQuitar.Margin = new System.Windows.Forms.Padding(4);
             this.btnQuitar.Name = "btnQuitar";
             this.btnQuitar.Size = new System.Drawing.Size(53, 49);
             this.btnQuitar.TabIndex = 11;
@@ -63,19 +63,20 @@
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgvUsers.Location = new System.Drawing.Point(4, 145);
-            this.dgvUsers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvUsers.Margin = new System.Windows.Forms.Padding(4);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.RowHeadersWidth = 51;
             this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUsers.Size = new System.Drawing.Size(543, 236);
             this.dgvUsers.TabIndex = 8;
+            this.dgvUsers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellClick);
             // 
             // btnSalir
             // 
             this.btnSalir.Image = global::BugTracker.Properties.Resources.salir;
             this.btnSalir.Location = new System.Drawing.Point(513, 407);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(4);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(53, 49);
             this.btnSalir.TabIndex = 12;
@@ -87,7 +88,7 @@
             this.btnEditar.Enabled = false;
             this.btnEditar.Image = global::BugTracker.Properties.Resources.editar;
             this.btnEditar.Location = new System.Drawing.Point(77, 407);
-            this.btnEditar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEditar.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(53, 49);
             this.btnEditar.TabIndex = 10;
@@ -98,7 +99,7 @@
             // 
             this.btnNuevo.Image = global::BugTracker.Properties.Resources.agregar;
             this.btnNuevo.Location = new System.Drawing.Point(16, 407);
-            this.btnNuevo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnNuevo.Margin = new System.Windows.Forms.Padding(4);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(53, 49);
             this.btnNuevo.TabIndex = 9;
@@ -109,7 +110,7 @@
             // 
             this.chkTodos.AutoSize = true;
             this.chkTodos.Location = new System.Drawing.Point(99, 92);
-            this.chkTodos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkTodos.Margin = new System.Windows.Forms.Padding(4);
             this.chkTodos.Name = "chkTodos";
             this.chkTodos.Size = new System.Drawing.Size(70, 21);
             this.chkTodos.TabIndex = 2;
@@ -130,7 +131,7 @@
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(99, 27);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(240, 22);
             this.txtNombre.TabIndex = 0;
@@ -138,7 +139,7 @@
             // btnConsultar
             // 
             this.btnConsultar.Location = new System.Drawing.Point(415, 106);
-            this.btnConsultar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConsultar.Margin = new System.Windows.Forms.Padding(4);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(116, 28);
             this.btnConsultar.TabIndex = 3;
@@ -150,7 +151,7 @@
             // 
             this.cboPerfiles.FormattingEnabled = true;
             this.cboPerfiles.Location = new System.Drawing.Point(99, 59);
-            this.cboPerfiles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboPerfiles.Margin = new System.Windows.Forms.Padding(4);
             this.cboPerfiles.Name = "cboPerfiles";
             this.cboPerfiles.Size = new System.Drawing.Size(240, 24);
             this.cboPerfiles.TabIndex = 1;
@@ -176,9 +177,9 @@
             this.pnlFiltros.Controls.Add(this.cboPerfiles);
             this.pnlFiltros.Controls.Add(this.lblEstado);
             this.pnlFiltros.Location = new System.Drawing.Point(16, 15);
-            this.pnlFiltros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlFiltros.Margin = new System.Windows.Forms.Padding(4);
             this.pnlFiltros.Name = "pnlFiltros";
-            this.pnlFiltros.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlFiltros.Padding = new System.Windows.Forms.Padding(4);
             this.pnlFiltros.Size = new System.Drawing.Size(551, 385);
             this.pnlFiltros.TabIndex = 8;
             this.pnlFiltros.TabStop = false;
@@ -195,7 +196,7 @@
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.pnlFiltros);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmUsuarios";

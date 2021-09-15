@@ -77,40 +77,51 @@ namespace BugTracker.GUILayer.Usuarios
         {
             Dictionary<string, object> parametros = new Dictionary<string, object>();
 
-
-            if (!string.IsNullOrEmpty(txtNombre.Text))
+            if (chkTodos.Checked == false)
             {
-                parametros.Add("usuario", txtNombre.Text);
-            };
+                if (!string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    parametros.Add("usuario", txtNombre.Text);
+                };
 
-            if (!string.IsNullOrEmpty(cboPerfiles.Text))
-            {
-                parametros.Add("idPerfil", cboPerfiles.SelectedValue.ToString());
-            };
-
-            IList<Usuario> listaUsuarios = oUsuarioService.ConsultarConFiltro(parametros);
-
-            if (chkTodos.Checked == true)
-            {
-                listaUsuarios = oUsuarioService.ObtenerTodos();
+                if (!string.IsNullOrEmpty(cboPerfiles.Text))
+                {
+                    parametros.Add("idPerfil", cboPerfiles.SelectedValue.ToString());
+                };
+                if (parametros.Count > 0)
+                {
+                    IList<Usuario> listaUsuarios = oUsuarioService.ConsultarConFiltro(parametros);
+                    dgvUsers.DataSource = listaUsuarios;
+                    if (dgvUsers.Rows.Count == 0)
+                    {
+                        MessageBox.Show("No se encontraron coincidencas para el/los filtros ingresados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                    MessageBox.Show("Debe ingresar al menos un criterio.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            dgvUsers.DataSource = listaUsuarios;
-            if (dgvUsers.Rows.Count == 0)
-            {
-                MessageBox.Show("No se encontraron coincidencas para el/los filtros ingresados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
+            else
+                dgvUsers.DataSource = oUsuarioService.ObtenerTodos();
         }
 
         private void btnEditar_Click(System.Object sender, System.EventArgs e)
         {
+            frmABMUsuario frmUsua = new frmABMUsuario();
+            var usua = (Usuario)dgvUsers.CurrentRow.DataBoundItem;
+            frmUsua.InicializarFormulario(frmABMUsuario.FormMode.modificar, usua);
+            frmUsua.ShowDialog();
 
+            btnConsultar_Click(sender, e);
         }
 
         private void btnQuitar_Click(System.Object sender, System.EventArgs e)
         {
+            frmABMUsuario frmUsua = new frmABMUsuario();
+            var usua = (Usuario)dgvUsers.CurrentRow.DataBoundItem;
+            frmUsua.InicializarFormulario(frmABMUsuario.FormMode.eliminar, usua);
+            frmUsua.ShowDialog();
 
+            btnConsultar_Click(sender, e);
         }
 
         private void InitializeDataGridView()
@@ -151,6 +162,12 @@ namespace BugTracker.GUILayer.Usuarios
         private void pnlFiltros_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditar.Enabled = true;
+            btnQuitar.Enabled = true;
         }
     }
 }
