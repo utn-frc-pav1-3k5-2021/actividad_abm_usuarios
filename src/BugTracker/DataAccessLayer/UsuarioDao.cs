@@ -115,14 +115,36 @@ namespace BugTracker.DataAccessLayer
 
         internal bool Update(Usuario oUsuario)
         {
-            throw new NotImplementedException();
+            String str_sql = string.Concat("UPDATE Usuarios ",
+                                       "SET ", 
+                                       "usuario = @usuario, ",
+                                       "email = @email, ",
+                                       "password = @password, ",
+                                       "id_perfil = @IdPerfil ",
+                                       "WHERE id_usuario = ",
+                                       oUsuario.IdUsuario);
+
+            var parametros = new Dictionary<string, object>();
+            parametros.Add("usuario", oUsuario.NombreUsuario);
+            parametros.Add("email", oUsuario.Email);
+            parametros.Add("password", oUsuario.Password);
+            parametros.Add("IdPerfil", oUsuario.Perfil.IdPerfil);
+
+            // Si una fila es afectada por la inserción retorna TRUE. Caso contrario FALSE
+            return (DataManager.GetInstance().EjecutarSQL(str_sql, parametros) == 1);
+
         }
 
         internal bool Delete(Usuario oUsuario)
         {
-            throw new NotImplementedException();
-        }
+            String str_sql = string.Concat("UPDATE Usuarios ",
+                                           "SET ",
+                                           "borrado = 1 ",
+                                           "WHERE id_usuario = ", 
+                                           oUsuario.IdUsuario);
 
+            return (DataManager.GetInstance().EjecutarSQL(str_sql) == 1);
+        }
 
         private Usuario ObjectMapping(DataRow row)
         {

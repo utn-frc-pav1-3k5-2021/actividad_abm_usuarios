@@ -39,6 +39,7 @@ namespace BugTracker.GUILayer.Usuarios
         private void frmABMUsuario_Load(System.Object sender, System.EventArgs e)
         {
             LlenarCombo(cboPerfil, oPerfilService.ObtenerTodos(), "Nombre", "IdPerfil");
+
             switch (formMode)
             {
                 case FormMode.nuevo:

@@ -75,17 +75,60 @@ namespace BugTracker.GUILayer.Usuarios
 
         private void btnConsultar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            UsuarioService usuarioService = new UsuarioService();
+            if (chkTodos.Checked)
+            {
+                IList<Usuario> usuariosData = usuarioService.ObtenerTodos();
+                dgvUsers.DataSource = usuariosData;
+
+            } else
+            {   
+                if(String.IsNullOrEmpty(txtNombre.Text) || String.IsNullOrEmpty(cboPerfiles.Text))
+                {
+                    MessageBox.Show("Complete los dos campos", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                } else
+                {
+                    Dictionary<string, object> parametros = new Dictionary<string, object>();
+                    parametros.Add("usuario", txtNombre.Text);
+                    parametros.Add("idPerfil", cboPerfiles.SelectedValue);
+                    IList<Usuario> usuariosData = usuarioService.ConsultarConFiltro(parametros);
+                    dgvUsers.DataSource = usuariosData;
+                }
+
+            }
+
+            if (!hayDatos())
+            {
+                MessageBox.Show("No encontraron usuarios", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+        private bool hayDatos()
+        {
+            return dgvUsers.Rows.Count != 0;
         }
 
         private void btnEditar_Click(System.Object sender, System.EventArgs e)
         {
-       
+            frmABMUsuario frmABM = new frmABMUsuario();
+
+            Usuario usuarioSelect = (Usuario) dgvUsers.CurrentRow.DataBoundItem;
+
+            frmABM.InicializarFormulario(frmABMUsuario.FormMode.modificar , usuarioSelect);
+            frmABM.ShowDialog();
         }
 
         private void btnQuitar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            frmABMUsuario frmABM = new frmABMUsuario();
+
+            Usuario usuarioSelect = (Usuario)dgvUsers.CurrentRow.DataBoundItem;
+
+            frmABM.InicializarFormulario(frmABMUsuario.FormMode.eliminar, usuarioSelect);
+            frmABM.ShowDialog();
+
         }
 
         private void InitializeDataGridView()
@@ -123,6 +166,11 @@ namespace BugTracker.GUILayer.Usuarios
                 DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
         }
 
-        
+
+        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditar.Enabled = true;
+            btnQuitar.Enabled = true;
+        }
     }
 }
