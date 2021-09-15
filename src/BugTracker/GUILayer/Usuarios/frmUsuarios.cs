@@ -75,17 +75,42 @@ namespace BugTracker.GUILayer.Usuarios
 
         private void btnConsultar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+
+
+            if (!string.IsNullOrEmpty(txtNombre.Text))
+            {
+                parametros.Add("usuario", txtNombre.Text);
+            };
+
+            if (!string.IsNullOrEmpty(cboPerfiles.Text))
+            {
+                parametros.Add("idPerfil", cboPerfiles.SelectedValue.ToString());
+            };
+
+            IList<Usuario> listaUsuarios = oUsuarioService.ConsultarConFiltro(parametros);
+
+            if (chkTodos.Checked == true)
+            {
+                listaUsuarios = oUsuarioService.ObtenerTodos();
+            }
+
+            dgvUsers.DataSource = listaUsuarios;
+            if (dgvUsers.Rows.Count == 0)
+            {
+                MessageBox.Show("No se encontraron coincidencas para el/los filtros ingresados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         private void btnEditar_Click(System.Object sender, System.EventArgs e)
         {
-       
+
         }
 
         private void btnQuitar_Click(System.Object sender, System.EventArgs e)
         {
-            
+
         }
 
         private void InitializeDataGridView()
@@ -123,6 +148,9 @@ namespace BugTracker.GUILayer.Usuarios
                 DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
         }
 
-        
+        private void pnlFiltros_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
