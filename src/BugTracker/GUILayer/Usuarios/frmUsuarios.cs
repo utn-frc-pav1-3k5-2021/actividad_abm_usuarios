@@ -77,40 +77,52 @@ namespace BugTracker.GUILayer.Usuarios
         {
             Dictionary<string, object> parametros = new Dictionary<string, object>();
 
-
-            if (!string.IsNullOrEmpty(txtNombre.Text))
+            if (!chkTodos.Checked)
             {
-                parametros.Add("usuario", txtNombre.Text);
-            };
+                if (!string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    parametros.Add("usuario", txtNombre.Text);
+                };
 
-            if (!string.IsNullOrEmpty(cboPerfiles.Text))
-            {
-                parametros.Add("idPerfil", cboPerfiles.SelectedValue.ToString());
-            };
+                if (!string.IsNullOrEmpty(cboPerfiles.Text))
+                {
+                    parametros.Add("idPerfil", cboPerfiles.SelectedValue.ToString());
+                };
 
-            IList<Usuario> listaUsuarios = oUsuarioService.ConsultarConFiltro(parametros);
-
-            if (chkTodos.Checked == true)
-            {
-                listaUsuarios = oUsuarioService.ObtenerTodos();
+                if (parametros.Count > 0)
+                    dgvUsers.DataSource = oUsuarioService.ConsultarConFiltro(parametros);
+                else
+                    MessageBox.Show("Debe ingresar al menos un criterio", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            dgvUsers.DataSource = listaUsuarios;
-            if (dgvUsers.Rows.Count == 0)
+            else
             {
-                MessageBox.Show("No se encontraron coincidencas para el/los filtros ingresados.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgvUsers.DataSource = oUsuarioService.ObtenerTodos();
             }
+     
         }
 
 
         private void btnEditar_Click(System.Object sender, System.EventArgs e)
         {
-       
+            frmABMUsuario frmUsuario = new frmABMUsuario();
+
+            var usuario = (Usuario)dgvUsers.CurrentRow.DataBoundItem;
+            frmUsuario.InicializarFormulario(frmABMUsuario.FormMode.modificar, usuario);
+            frmUsuario.ShowDialog();
+
+            btnConsultar_Click(sender, e);
+           
         }
 
         private void btnQuitar_Click(System.Object sender, System.EventArgs e)
         {
-            
+            frmABMUsuario frmUsuario = new frmABMUsuario();
+
+            var usuario = (Usuario)dgvUsers.CurrentRow.DataBoundItem;
+            frmUsuario.InicializarFormulario(frmABMUsuario.FormMode.eliminar, usuario);
+            frmUsuario.ShowDialog();
+
+            btnQuitar_Click(sender, e);
         }
 
         private void InitializeDataGridView()
@@ -148,6 +160,10 @@ namespace BugTracker.GUILayer.Usuarios
                 DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders);
         }
 
-        
+        private void dgvUsers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditar.Enabled = true;
+            btnQuitar.Enabled = true;
+        }
     }
 }
